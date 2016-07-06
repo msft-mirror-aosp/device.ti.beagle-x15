@@ -76,6 +76,7 @@ PRODUCT_PACKAGES += \
 	android.hardware.boot@1.0-service \
 	android.hardware.fastboot@1.0 \
 	android.hardware.fastboot@1.0-impl-mock \
+	modetest \
 	libdrm \
 	libdrm_omap \
 	gralloc.am57x \
