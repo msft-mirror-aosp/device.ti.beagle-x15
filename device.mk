@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+PRODUCT_SOONG_NAMESPACES += \
+	hardware/ti/am57x
+
 # Adjust the dalvik heap to be appropriate for a tablet.
 $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-heap.mk)
 
