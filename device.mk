@@ -22,17 +22,23 @@ $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-hea
 
 # Set custom settings
 DEVICE_PACKAGE_OVERLAYS := device/ti/beagle_x15/overlay
-
 PREBUILT_DIR := device/ti/beagle_x15-kernel
-TARGET_KERNEL_USE ?= 4.14
 
 # Helper variables for working with kernel files
 ifneq ($(KERNELDIR),)
+  KERNEL_MAJ := $(shell grep '^VERSION' $(KERNELDIR)/Makefile | cut -d " " -f 3)
+  KERNEL_MIN := $(shell grep '^PATCHLEVEL' $(KERNELDIR)/Makefile | cut -d " " -f 3)
+  TARGET_KERNEL_USE := $(KERNEL_MAJ).$(KERNEL_MIN)
+
   LOCAL_KERNEL_HOME := $(KERNELDIR)
   LOCAL_KERNEL := $(KERNELDIR)/arch/arm/boot/zImage
   DTB_DIR := $(KERNELDIR)/arch/arm/boot/dts
   DTBO_DIR := $(KERNELDIR)/arch/arm/boot/dts/ti
 else
+  TARGET_KERNEL_USE ?= 4.14
+  KERNEL_MAJ := $(word 1, $(subst ., ,$(TARGET_KERNEL_USE)))
+  KERNEL_MIN := $(word 2, $(subst ., ,$(TARGET_KERNEL_USE)))
+
   LOCAL_KERNEL_HOME := $(PREBUILT_DIR)/$(TARGET_KERNEL_USE)
   LOCAL_KERNEL := $(LOCAL_KERNEL_HOME)/zImage
   DTB_DIR := $(LOCAL_KERNEL_HOME)
@@ -106,8 +112,13 @@ PRODUCT_COPY_FILES += \
 	device/ti/beagle_x15/init.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.rc \
 	device/ti/beagle_x15/init.beagle_x15board.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.usb.rc \
 	device/ti/beagle_x15/ueventd.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
-	device/ti/beagle_x15/fstab.beagle_x15board:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.beagle_x15board \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml \
+
+ifeq ($(KERNEL_MAJ),4)
+  PRODUCT_COPY_FILES += device/ti/beagle_x15/fstab.beagle_x15board_v4:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.beagle_x15board
+else
+  PRODUCT_COPY_FILES += device/ti/beagle_x15/fstab.beagle_x15board_v5:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.beagle_x15board
+endif
 
 #FIXME: this feature should be turned off as soon as google start checking for WIFI support before wifi calls
 PRODUCT_COPY_FILES += \
