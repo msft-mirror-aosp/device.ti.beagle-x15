@@ -36,6 +36,13 @@ PRODUCT_PACKAGES += \
 	libdrm \
 	libdrm_omap \
 	hwcomposer.am57x \
+	gralloc.am57x \
+	libEGL_POWERVR_SGX544_116 \
+	libGLESv1_CM_POWERVR_SGX544_116 \
+	libGLESv2_POWERVR_SGX544_116 \
+	libPVRScopeServices \
+	memtrack.am57x \
+	pvrsrvctl \
 
 #Security
 PRODUCT_PACKAGES += \

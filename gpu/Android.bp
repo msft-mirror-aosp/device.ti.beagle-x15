@@ -1,0 +1,132 @@
+// Copyright 2018 The Android Open Source Project
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+
+// Core dependencies
+
+cc_prebuilt_library_shared {
+    name: "libIMGegl",
+    srcs: ["libIMGegl.so"],
+    required: ["libpvrANDROID_WSEGL", "libsrv_um"],
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libglslcompiler",
+    srcs: ["libglslcompiler.so"],
+    required: ["libsrv_um", "libusc"],
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libpvr2d",
+    srcs: ["libpvr2d.so"],
+    required: ["libsrv_um"],
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libpvrANDROID_WSEGL",
+    srcs: ["libpvrANDROID_WSEGL.so"],
+    required: ["libsrv_um"],
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libsrv_init",
+    srcs: ["libsrv_init.so"],
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libsrv_um",
+    srcs: ["libsrv_um.so"],
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libusc",
+    srcs: ["libusc.so"],
+    strip: { none: true, },
+    vendor: true,
+}
+
+// Pulled in as-needed
+
+cc_prebuilt_library_shared {
+    name: "gralloc.am57x",
+    srcs: ["gralloc.am57x.so"],
+    required: ["libpvr2d", "libsrv_um"],
+    relative_install_path: "hw",
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libEGL_POWERVR_SGX544_116",
+    srcs: ["libEGL_POWERVR_SGX544_116.so"],
+    required: ["libIMGegl"],
+    relative_install_path: "egl",
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libGLESv1_CM_POWERVR_SGX544_116",
+    srcs: ["libGLESv1_CM_POWERVR_SGX544_116.so"],
+    required: ["libIMGegl", "libsrv_um", "libusc"],
+    relative_install_path: "egl",
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libGLESv2_POWERVR_SGX544_116",
+    srcs: ["libGLESv2_POWERVR_SGX544_116.so"],
+    required: ["libIMGegl", "libglslcompiler", "libsrv_um"],
+    relative_install_path: "egl",
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "libPVRScopeServices",
+    srcs: ["libPVRScopeServices.so"],
+    required: ["libsrv_um"],
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_library_shared {
+    name: "memtrack.am57x",
+    srcs: ["memtrack.am57x.so"],
+    required: ["libsrv_um"],
+    relative_install_path: "hw",
+    strip: { none: true, },
+    vendor: true,
+}
+
+cc_prebuilt_binary {
+    name: "pvrsrvctl",
+    srcs: ["pvrsrvctl"],
+    required: ["libsrv_init", "libsrv_um"],
+    strip: { none: true, },
+    vendor: true,
+}
