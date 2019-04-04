@@ -21,7 +21,8 @@ $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-hea
 DEVICE_PACKAGE_OVERLAYS := device/ti/beagle_x15/overlay
 
 LOCAL_KERNEL := device/ti/beagle_x15-kernel
-TARGET_PREBUILT_KERNEL := $(LOCAL_KERNEL)/zImage
+TARGET_KERNEL_USE ?= 4.14
+TARGET_PREBUILT_KERNEL := $(LOCAL_KERNEL)/$(TARGET_KERNEL_USE)/zImage
 PRODUCT_COPY_FILES += $(TARGET_PREBUILT_KERNEL):kernel
 
 # Graphics
