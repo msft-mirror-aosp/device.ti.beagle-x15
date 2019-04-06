@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
+PRODUCT_SOONG_NAMESPACES += \
+	hardware/ti/am57x
+
 # Adjust the dalvik heap to be appropriate for a tablet.
 $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-heap.mk)
 
@@ -21,7 +24,8 @@ $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-hea
 DEVICE_PACKAGE_OVERLAYS := device/ti/beagle_x15/overlay
 
 LOCAL_KERNEL := device/ti/beagle_x15-kernel
-TARGET_PREBUILT_KERNEL := $(LOCAL_KERNEL)/zImage
+TARGET_KERNEL_USE ?= 4.14
+TARGET_PREBUILT_KERNEL := $(LOCAL_KERNEL)/$(TARGET_KERNEL_USE)/zImage
 PRODUCT_COPY_FILES += $(TARGET_PREBUILT_KERNEL):kernel
 
 # Graphics
@@ -32,9 +36,18 @@ PRODUCT_PACKAGES += \
 	android.hardware.graphics.mapper@2.0-service \
 	android.hardware.graphics.composer@2.1-impl \
 	android.hardware.graphics.composer@2.1-service \
+	android.hardware.boot@1.0-impl:64 \
+	android.hardware.boot@1.0-service \
 	libdrm \
 	libdrm_omap \
 	hwcomposer.am57x \
+	gralloc.am57x \
+	libEGL_POWERVR_SGX544_116 \
+	libGLESv1_CM_POWERVR_SGX544_116 \
+	libGLESv2_POWERVR_SGX544_116 \
+	libPVRScopeServices \
+	memtrack.am57x \
+	pvrsrvctl \
 
 #Security
 PRODUCT_PACKAGES += \
@@ -103,3 +116,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
 	bootfitimage
+
+# Boot control
+PRODUCT_PACKAGES += \
+	bootctrl.am57x \
+
+PRODUCT_PACKAGES_DEBUG += \
+	bootctl \
