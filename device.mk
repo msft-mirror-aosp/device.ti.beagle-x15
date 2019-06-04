@@ -139,9 +139,6 @@ PRODUCT_PACKAGES += \
 	netutils-wrapper-1.0 \
 	messaging \
 
-PRODUCT_PACKAGES += \
-	bootfitimage
-
 # Boot control
 PRODUCT_PACKAGES += \
 	bootctrl.am57x \

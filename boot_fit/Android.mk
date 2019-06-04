@@ -33,5 +33,7 @@ LOCAL_MODULE := bootfitimage
 LOCAL_ADDITIONAL_DEPENDENCIES := $(BOOTIMG_FIT)
 include $(BUILD_PHONY_PACKAGE)
 
+droidcore: bootfitimage
+
 endif
 endif
