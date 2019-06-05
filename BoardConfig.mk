@@ -59,6 +59,13 @@ TARGET_RELEASETOOLS_EXTENSIONS := device/ti/beagle_x15
 BOARD_SEPOLICY_DIRS += \
 	device/ti/beagle_x15/sepolicy
 
+ifeq ($(TARGET_PRODUCT),beagle_x15_auto)
+BOARD_SEPOLICY_DIRS += \
+    packages/services/Car/car_product/sepolicy
+
+DEVICE_MANIFEST_FILE += device/ti/beagle_x15/auto/manifest.xml
+endif
+
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
 # U-Boot configuration.
