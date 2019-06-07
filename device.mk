@@ -23,10 +23,24 @@ $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-hea
 # Set custom settings
 DEVICE_PACKAGE_OVERLAYS := device/ti/beagle_x15/overlay
 
-LOCAL_KERNEL := device/ti/beagle_x15-kernel
+PREBUILT_DIR := device/ti/beagle_x15-kernel
 TARGET_KERNEL_USE ?= 4.14
-TARGET_PREBUILT_KERNEL := $(LOCAL_KERNEL)/$(TARGET_KERNEL_USE)/zImage
-PRODUCT_COPY_FILES += $(TARGET_PREBUILT_KERNEL):kernel
+
+# Helper variables for working with kernel files
+ifneq ($(KERNELDIR),)
+  LOCAL_KERNEL_HOME := $(KERNELDIR)
+  LOCAL_KERNEL := $(KERNELDIR)/arch/arm/boot/zImage
+  DTB_DIR := $(KERNELDIR)/arch/arm/boot/dts
+  DTBO_DIR := $(KERNELDIR)/arch/arm/boot/dts/ti
+else
+  LOCAL_KERNEL_HOME := $(PREBUILT_DIR)/$(TARGET_KERNEL_USE)
+  LOCAL_KERNEL := $(LOCAL_KERNEL_HOME)/zImage
+  DTB_DIR := $(LOCAL_KERNEL_HOME)
+  DTBO_DIR := $(DTB_DIR)
+endif
+
+TARGET_PREBUILT_KERNEL := $(LOCAL_KERNEL)
+PRODUCT_COPY_FILES += $(LOCAL_KERNEL):kernel
 
 # Graphics
 PRODUCT_PACKAGES += \
