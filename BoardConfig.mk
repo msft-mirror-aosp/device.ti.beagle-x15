@@ -69,6 +69,13 @@ TARGET_UBOOT_CONFIGS += device/ti/beagle_x15/beagle_x15_uboot.conf
 TARGET_UBOOT_MAKE_TARGET := u-boot-img.bin
 TARGET_UBOOT_COPY_TARGETS := u-boot.img MLO
 
-# Graphics
-BOARD_VENDOR_KERNEL_MODULES += \
-	device/ti/beagle_x15-kernel/$(TARGET_KERNEL_USE)/pvrsrvkm.ko
+# Copy kernel modules (including pvrsrvkm.ko) into /vendor/lib/modules
+BOARD_ALL_MODULES := $(shell find $(LOCAL_KERNEL_HOME) -type f -iname '*.ko')
+BOARD_VENDOR_KERNEL_MODULES += $(BOARD_ALL_MODULES)
+
+# Check if SGX kernel module is present in chosen kernel directory
+SGX_KO := $(shell find $(LOCAL_KERNEL_HOME) -type f -name 'pvrsrvkm.ko')
+ifeq ($(SGX_KO),)
+  $(warning SGX module (pvrsrvkm.ko) not found, graphics won't work)
+  $(warning SGX module search path is: $(LOCAL_KERNEL_HOME))
+endif
