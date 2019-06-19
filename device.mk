@@ -15,6 +15,7 @@
 #
 
 PRODUCT_SOONG_NAMESPACES += \
+	device/ti/beagle_x15 \
 	hardware/ti/am57x
 
 # Adjust the dalvik heap to be appropriate for a tablet.
