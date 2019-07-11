@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018 Texas Instruments Incorporated - http://www.ti.com/
+# Copyright (C) 2019 Texas Instruments Incorporated - http://www.ti.com/
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +14,13 @@
 # limitations under the License.
 #
 
-PRODUCT_MAKEFILES := \
-    beagle_x15:$(LOCAL_DIR)/beagle_x15.mk \
-    beagle_x15_auto:$(LOCAL_DIR)/auto/beagle_x15.mk \
+$(call inherit-product, device/ti/beagle_x15/device.mk)
+$(call inherit-product, device/ti/beagle_x15/auto/device.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
+$(call inherit-product, packages/services/Car/car_product/build/car.mk)
 
-COMMON_LUNCH_CHOICES := \
-    beagle_x15-userdebug \
-    beagle_x15_auto-userdebug \
+PRODUCT_NAME := beagle_x15_auto
+PRODUCT_DEVICE := beagle_x15
+PRODUCT_BRAND := Android
+PRODUCT_MODEL := AOSP Auto on BeagleBoard X15
+PRODUCT_MANUFACTURER := Texas Instruments Inc
