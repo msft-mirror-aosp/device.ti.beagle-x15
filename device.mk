@@ -33,7 +33,13 @@ ifneq ($(KERNELDIR),)
 
   LOCAL_KERNEL_HOME := $(KERNELDIR)
   LOCAL_KERNEL := $(KERNELDIR)/arch/arm/boot/zImage
-  DTB_DIR := $(KERNELDIR)/arch/arm/boot/dts
+
+  # Check if kernel/omap or linux-mainline is used
+  ifneq ($(wildcard $(KERNELDIR)/arch/arm/boot/dts/ti/.*),)
+    DTB_DIR := $(KERNELDIR)/arch/arm/boot/dts/ti
+  else
+    DTB_DIR := $(KERNELDIR)/arch/arm/boot/dts
+  endif
   DTBO_DIR := $(KERNELDIR)/arch/arm/boot/dts/ti
 else
   TARGET_KERNEL_USE ?= 4.14
