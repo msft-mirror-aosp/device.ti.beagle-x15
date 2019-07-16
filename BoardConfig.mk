@@ -87,3 +87,8 @@ ifeq ($(SGX_KO),)
   $(warning SGX module (pvrsrvkm.ko) not found, graphics will not work)
   $(warning SGX module search path is: $(LOCAL_KERNEL_HOME))
 endif
+
+# Include *.dtb to boot.img and use Android Boot Image v2
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_PREBUILT_DTBIMAGE_DIR := $(DTB_DIR)
+BOARD_MKBOOTIMG_ARGS := --header_version 2
