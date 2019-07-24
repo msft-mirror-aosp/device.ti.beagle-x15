@@ -70,6 +70,8 @@ PRODUCT_PACKAGES += \
 	android.hardware.graphics.composer@2.1-service \
 	android.hardware.boot@1.0-impl:64 \
 	android.hardware.boot@1.0-service \
+	android.hardware.fastboot@1.0 \
+	android.hardware.fastboot@1.0-impl-mock \
 	libdrm \
 	libdrm_omap \
 	hwcomposer.am57x \
@@ -175,3 +177,4 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES_DEBUG += \
 	bootctl \
+	fastbootd \
