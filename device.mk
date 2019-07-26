@@ -113,19 +113,19 @@ PRODUCT_COPY_FILES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp \
 
+ifeq ($(KERNEL_MAJ),4)
+  TARGET_FSTAB := fstab.beagle_x15board_v4
+else
+  TARGET_FSTAB := fstab.beagle_x15board_v5
+endif
 
 PRODUCT_COPY_FILES += \
 	device/ti/beagle_x15/tablet_core_hardware_beagle_x15.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/tablet_core_hardware_beagle_x15.xml \
 	device/ti/beagle_x15/init.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.rc \
 	device/ti/beagle_x15/init.beagle_x15board.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.usb.rc \
 	device/ti/beagle_x15/ueventd.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+	device/ti/beagle_x15/$(TARGET_FSTAB):$(TARGET_COPY_OUT_VENDOR)/etc/fstab.beagle_x15board \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml \
-
-ifeq ($(KERNEL_MAJ),4)
-  PRODUCT_COPY_FILES += device/ti/beagle_x15/fstab.beagle_x15board_v4:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.beagle_x15board
-else
-  PRODUCT_COPY_FILES += device/ti/beagle_x15/fstab.beagle_x15board_v5:$(TARGET_COPY_OUT_VENDOR)/etc/fstab.beagle_x15board
-endif
 
 #FIXME: this feature should be turned off as soon as google start checking for WIFI support before wifi calls
 PRODUCT_COPY_FILES += \
