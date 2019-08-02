@@ -41,6 +41,7 @@ BOARD_FLASH_BLOCK_SIZE := 4096
 
 USE_CAMERA_STUB := true
 
+BOARD_BOOTIMAGE_PARTITION_SIZE     := 20971520   # 20 MiB
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 1879048192 # 1792MB
 BOARD_SYSTEMIMAGE_PARTITION_SIZE   := 1073741824 # 1024MB
 BOARD_VENDORIMAGE_PARTITION_SIZE   := 268435456  # 256MB
@@ -87,6 +88,8 @@ ifeq ($(SGX_KO),)
   $(warning SGX module (pvrsrvkm.ko) not found, graphics will not work)
   $(warning SGX module search path is: $(LOCAL_KERNEL_HOME))
 endif
+
+BOARD_AVB_ENABLE := true
 
 # Include *.dtb to boot.img and use Android Boot Image v2
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
