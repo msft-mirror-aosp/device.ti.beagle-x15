@@ -14,6 +14,8 @@
 # limitations under the License.
 #
 
+PRODUCT_HARDWARE := beagle_x15board
+
 PRODUCT_SOONG_NAMESPACES += \
 	device/ti/beagle_x15 \
 	hardware/ti/am57x
@@ -120,6 +122,7 @@ else
 endif
 
 PRODUCT_COPY_FILES += \
+	$(LOCAL_PATH)/init.recovery.hardware.rc:recovery/root/init.recovery.$(PRODUCT_HARDWARE).rc \
 	device/ti/beagle_x15/tablet_core_hardware_beagle_x15.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/tablet_core_hardware_beagle_x15.xml \
 	device/ti/beagle_x15/init.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.rc \
 	device/ti/beagle_x15/init.beagle_x15board.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.usb.rc \
