@@ -52,12 +52,19 @@ TARGET_BOOTLOADER_BOARD_NAME := beagle_x15board
 TARGET_BOARD_PLATFORM := am57x
 TARGET_COPY_OUT_VENDOR := vendor
 
-TARGET_RECOVERY_FSTAB = device/ti/beagle_x15/fstab.beagle_x15board
+TARGET_RECOVERY_FSTAB = device/ti/beagle_x15/$(TARGET_FSTAB)
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TARGET_RELEASETOOLS_EXTENSIONS := device/ti/beagle_x15
 
 BOARD_SEPOLICY_DIRS += \
 	device/ti/beagle_x15/sepolicy
+
+ifeq ($(TARGET_PRODUCT),beagle_x15_auto)
+BOARD_SEPOLICY_DIRS += \
+    packages/services/Car/car_product/sepolicy
+
+DEVICE_MANIFEST_FILE += device/ti/beagle_x15/auto/manifest.xml
+endif
 
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
@@ -69,6 +76,13 @@ TARGET_UBOOT_CONFIGS += device/ti/beagle_x15/beagle_x15_uboot.conf
 TARGET_UBOOT_MAKE_TARGET := u-boot-img.bin
 TARGET_UBOOT_COPY_TARGETS := u-boot.img MLO
 
-# Graphics
-BOARD_VENDOR_KERNEL_MODULES += \
-	device/ti/beagle_x15-kernel/$(TARGET_KERNEL_USE)/pvrsrvkm.ko
+# Copy kernel modules (including pvrsrvkm.ko) into /vendor/lib/modules
+BOARD_ALL_MODULES := $(shell find $(LOCAL_KERNEL_HOME) -type f -iname '*.ko')
+BOARD_VENDOR_KERNEL_MODULES += $(BOARD_ALL_MODULES)
+
+# Check if SGX kernel module is present in chosen kernel directory
+SGX_KO := $(shell find $(LOCAL_KERNEL_HOME) -type f -name 'pvrsrvkm.ko')
+ifeq ($(SGX_KO),)
+  $(warning SGX module (pvrsrvkm.ko) not found, graphics won't work)
+  $(warning SGX module search path is: $(LOCAL_KERNEL_HOME))
+endif
