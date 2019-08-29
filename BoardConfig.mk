@@ -52,7 +52,7 @@ TARGET_BOOTLOADER_BOARD_NAME := beagle_x15board
 TARGET_BOARD_PLATFORM := am57x
 TARGET_COPY_OUT_VENDOR := vendor
 
-TARGET_RECOVERY_FSTAB = device/ti/beagle_x15/$(TARGET_FSTAB)
+TARGET_RECOVERY_FSTAB := device/ti/beagle_x15/$(TARGET_FSTAB)
 TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
 TARGET_RELEASETOOLS_EXTENSIONS := device/ti/beagle_x15
 
@@ -61,7 +61,7 @@ BOARD_SEPOLICY_DIRS += \
 
 ifeq ($(TARGET_PRODUCT),beagle_x15_auto)
 BOARD_SEPOLICY_DIRS += \
-    packages/services/Car/car_product/sepolicy
+	packages/services/Car/car_product/sepolicy
 
 DEVICE_MANIFEST_FILE += device/ti/beagle_x15/auto/manifest.xml
 endif
@@ -83,6 +83,6 @@ BOARD_VENDOR_KERNEL_MODULES += $(BOARD_ALL_MODULES)
 # Check if SGX kernel module is present in chosen kernel directory
 SGX_KO := $(shell find $(LOCAL_KERNEL_HOME) -type f -name 'pvrsrvkm.ko')
 ifeq ($(SGX_KO),)
-  $(warning SGX module (pvrsrvkm.ko) not found, graphics won't work)
+  $(warning SGX module (pvrsrvkm.ko) not found, graphics will not work)
   $(warning SGX module search path is: $(LOCAL_KERNEL_HOME))
 endif
