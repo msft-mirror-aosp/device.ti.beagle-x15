@@ -16,6 +16,9 @@
 
 PRODUCT_HARDWARE := beagle_x15board
 
+# Enable updating of APEXes
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+
 PRODUCT_SOONG_NAMESPACES += \
 	device/ti/beagle_x15 \
 	hardware/ti/am57x
@@ -77,6 +80,11 @@ PRODUCT_PACKAGES += \
 	libPVRScopeServices \
 	memtrack.am57x \
 	pvrsrvctl \
+
+#Health
+PRODUCT_PACKAGES += \
+	android.hardware.health@2.1-impl \
+	android.hardware.health@2.1-servie \
 
 #Security
 PRODUCT_PACKAGES += \
@@ -159,6 +167,7 @@ PRODUCT_PACKAGES += \
 	vintf \
 	netutils-wrapper-1.0 \
 	messaging \
+	healthd \
 
 # Boot control
 PRODUCT_PACKAGES += \
