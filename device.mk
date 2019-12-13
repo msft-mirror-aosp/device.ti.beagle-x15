@@ -178,3 +178,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES_DEBUG += \
 	bootctl \
 	fastbootd \
+# A/B
+PRODUCT_PACKAGES += \
+	update_engine \
+	update_verifier
+
+PRODUCT_PACKAGES += \
+	update_engine_sideload
+
+PRODUCT_PACKAGES_DEBUG += \
+	update_engine_client
