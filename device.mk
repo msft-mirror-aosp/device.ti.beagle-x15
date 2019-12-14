@@ -70,6 +70,8 @@ PRODUCT_PACKAGES += \
 	android.hardware.graphics.composer@2.1-service \
 	android.hardware.boot@1.0-impl:64 \
 	android.hardware.boot@1.0-service \
+	android.hardware.fastboot@1.0 \
+	android.hardware.fastboot@1.0-impl-mock \
 	libdrm \
 	libdrm_omap \
 	hwcomposer.am57x \
@@ -146,6 +148,7 @@ PRODUCT_COPY_FILES += \
 	device/ti/beagle_x15/init.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.rc \
 	device/ti/beagle_x15/init.beagle_x15board.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.usb.rc \
 	device/ti/beagle_x15/ueventd.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+	device/ti/beagle_x15/$(TARGET_FSTAB):$(TARGET_COPY_OUT_RAMDISK)/fstab.beagle_x15board \
 	device/ti/beagle_x15/$(TARGET_FSTAB):$(TARGET_COPY_OUT_VENDOR)/etc/fstab.beagle_x15board \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml \
 
@@ -175,3 +178,16 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES_DEBUG += \
 	bootctl \
+	fastbootd \
+# A/B
+PRODUCT_PACKAGES += \
+	update_engine \
+	update_verifier
+
+PRODUCT_PACKAGES += \
+	update_engine_sideload
+
+PRODUCT_PACKAGES_DEBUG += \
+	update_engine_client
+
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
