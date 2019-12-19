@@ -74,7 +74,6 @@ PRODUCT_PACKAGES += \
 	android.hardware.fastboot@1.0-impl-mock \
 	libdrm \
 	libdrm_omap \
-	hwcomposer.am57x \
 	gralloc.am57x \
 	libEGL_POWERVR_SGX544_116 \
 	libGLESv1_CM_POWERVR_SGX544_116 \
@@ -82,6 +81,14 @@ PRODUCT_PACKAGES += \
 	libPVRScopeServices \
 	memtrack.am57x \
 	pvrsrvctl \
+
+ifeq ($(USE_DRM_HWC), y)
+PRODUCT_PACKAGES += hwcomposer.drm_imagination
+PRODUCT_PROPERTY_OVERRIDES += \
+	ro.hardware.hwcomposer=drm_imagination \
+else
+PRODUCT_PACKAGES += hwcomposer.am57x
+endif
 
 #Health
 PRODUCT_PACKAGES += \
