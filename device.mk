@@ -82,12 +82,11 @@ PRODUCT_PACKAGES += \
 	memtrack.am57x \
 	pvrsrvctl \
 
-ifeq ($(USE_DRM_HWC), y)
-PRODUCT_PACKAGES += hwcomposer.drm_imagination
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.hardware.hwcomposer=drm_imagination \
-else
+ifeq ($(USE_TI_HWC), y)
 PRODUCT_PACKAGES += hwcomposer.am57x
+else
+PRODUCT_PACKAGES += hwcomposer.drm_imagination
+PRODUCT_PROPERTY_OVERRIDES += ro.hardware.hwcomposer=drm_imagination
 endif
 
 #Health
