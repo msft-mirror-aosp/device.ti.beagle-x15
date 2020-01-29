@@ -79,6 +79,12 @@ endif
 
 BOARD_PROPERTY_OVERRIDES_SPLIT_ENABLED := true
 
+# Copy uboot prebuilts
+PRODUCT_COPY_FILES += \
+	device/ti/beagle_x15/bootloader/MLO:$(TARGET_OUT)/MLO \
+	device/ti/beagle_x15/bootloader/u-boot.img:$(TARGET_OUT)/u-boot.img \
+
+
 # Copy kernel modules (including pvrsrvkm.ko) into /vendor/lib/modules
 BOARD_ALL_MODULES := $(shell find $(LOCAL_KERNEL_HOME) -type f -iname '*.ko')
 BOARD_VENDOR_KERNEL_MODULES += $(BOARD_ALL_MODULES)
