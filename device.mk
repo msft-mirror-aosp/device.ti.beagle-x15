@@ -16,6 +16,9 @@
 
 PRODUCT_HARDWARE := beagle_x15board
 
+# Enable updating of APEXes
+$(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+
 PRODUCT_SOONG_NAMESPACES += \
 	device/ti/beagle_x15 \
 	hardware/ti/am57x
@@ -67,9 +70,10 @@ PRODUCT_PACKAGES += \
 	android.hardware.graphics.composer@2.1-service \
 	android.hardware.boot@1.0-impl:64 \
 	android.hardware.boot@1.0-service \
+	android.hardware.fastboot@1.0 \
+	android.hardware.fastboot@1.0-impl-mock \
 	libdrm \
 	libdrm_omap \
-	hwcomposer.am57x \
 	gralloc.am57x \
 	libEGL_POWERVR_SGX544_116 \
 	libGLESv1_CM_POWERVR_SGX544_116 \
@@ -77,6 +81,18 @@ PRODUCT_PACKAGES += \
 	libPVRScopeServices \
 	memtrack.am57x \
 	pvrsrvctl \
+
+ifeq ($(USE_TI_HWC), y)
+PRODUCT_PACKAGES += hwcomposer.am57x
+else
+PRODUCT_PACKAGES += hwcomposer.drm_imagination
+PRODUCT_PROPERTY_OVERRIDES += ro.hardware.hwcomposer=drm_imagination
+endif
+
+#Health
+PRODUCT_PACKAGES += \
+	android.hardware.health@2.1-impl \
+	android.hardware.health@2.1-service \
 
 #Security
 PRODUCT_PACKAGES += \
@@ -138,6 +154,7 @@ PRODUCT_COPY_FILES += \
 	device/ti/beagle_x15/init.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.rc \
 	device/ti/beagle_x15/init.beagle_x15board.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.beagle_x15board.usb.rc \
 	device/ti/beagle_x15/ueventd.beagle_x15board.rc:$(TARGET_COPY_OUT_VENDOR)/ueventd.rc \
+	device/ti/beagle_x15/$(TARGET_FSTAB):$(TARGET_COPY_OUT_RAMDISK)/fstab.beagle_x15board \
 	device/ti/beagle_x15/$(TARGET_FSTAB):$(TARGET_COPY_OUT_VENDOR)/etc/fstab.beagle_x15board \
 	frameworks/native/data/etc/android.hardware.ethernet.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.ethernet.xml \
 
@@ -159,6 +176,7 @@ PRODUCT_PACKAGES += \
 	vintf \
 	netutils-wrapper-1.0 \
 	messaging \
+	healthd \
 
 # Boot control
 PRODUCT_PACKAGES += \
@@ -166,3 +184,16 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES_DEBUG += \
 	bootctl \
+	fastbootd \
+# A/B
+PRODUCT_PACKAGES += \
+	update_engine \
+	update_verifier
+
+PRODUCT_PACKAGES += \
+	update_engine_sideload
+
+PRODUCT_PACKAGES_DEBUG += \
+	update_engine_client
+
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
