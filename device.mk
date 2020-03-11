@@ -89,6 +89,10 @@ PRODUCT_PACKAGES += hwcomposer.drm_imagination
 PRODUCT_PROPERTY_OVERRIDES += ro.hardware.hwcomposer=drm_imagination
 endif
 
+# Software Gatekeeper HAL
+PRODUCT_PACKAGES += \
+	android.hardware.gatekeeper@1.0-service.software \
+
 #Health
 PRODUCT_PACKAGES += \
 	android.hardware.health@2.1-impl \
@@ -177,6 +181,7 @@ PRODUCT_PACKAGES += \
 	netutils-wrapper-1.0 \
 	messaging \
 	healthd \
+	gatekeeperd \
 
 # Boot control
 PRODUCT_PACKAGES += \
