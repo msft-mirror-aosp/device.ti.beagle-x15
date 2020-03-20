@@ -82,18 +82,21 @@ PRODUCT_PACKAGES += \
 	memtrack.am57x \
 	pvrsrvctl \
 
-ifeq ($(USE_DRM_HWC), y)
-PRODUCT_PACKAGES += hwcomposer.drm_imagination
-PRODUCT_PROPERTY_OVERRIDES += \
-	ro.hardware.hwcomposer=drm_imagination \
-else
+ifeq ($(USE_TI_HWC), y)
 PRODUCT_PACKAGES += hwcomposer.am57x
+else
+PRODUCT_PACKAGES += hwcomposer.drm_imagination
+PRODUCT_PROPERTY_OVERRIDES += ro.hardware.hwcomposer=drm_imagination
 endif
+
+# Software Gatekeeper HAL
+PRODUCT_PACKAGES += \
+	android.hardware.gatekeeper@1.0-service.software \
 
 #Health
 PRODUCT_PACKAGES += \
 	android.hardware.health@2.1-impl \
-	android.hardware.health@2.1-servie \
+	android.hardware.health@2.1-service \
 
 #Security
 PRODUCT_PACKAGES += \
@@ -178,6 +181,7 @@ PRODUCT_PACKAGES += \
 	netutils-wrapper-1.0 \
 	messaging \
 	healthd \
+	gatekeeperd \
 
 # Boot control
 PRODUCT_PACKAGES += \
