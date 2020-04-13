@@ -17,8 +17,6 @@
 $(call inherit-product, device/ti/beagle_x15/device.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base.mk)
 
-PRODUCT_SHIPPING_API_LEVEL := 29
-PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 PRODUCT_NAME := beagle_x15
 PRODUCT_DEVICE := beagle_x15
 PRODUCT_BRAND := Android
