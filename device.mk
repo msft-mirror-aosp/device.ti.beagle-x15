@@ -18,6 +18,7 @@ PRODUCT_HARDWARE := beagle_x15board
 
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 PRODUCT_SOONG_NAMESPACES += \
 	device/ti/beagle_x15 \
