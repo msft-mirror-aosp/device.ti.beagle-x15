@@ -18,6 +18,7 @@ PRODUCT_HARDWARE := beagle_x15board
 
 # Enable updating of APEXes
 $(call inherit-product, $(SRC_TARGET_DIR)/product/updatable_apex.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
 
 PRODUCT_SOONG_NAMESPACES += \
 	device/ti/beagle_x15 \
@@ -110,10 +111,9 @@ PRODUCT_PACKAGES += \
 
 # Audio
 PRODUCT_PACKAGES += \
-	android.hardware.audio@2.0-impl \
-	android.hardware.audio@2.0-service \
-	android.hardware.audio.effect@2.0-impl \
-	android.hardware.audio.effect@2.0-service \
+	android.hardware.audio@6.0-impl \
+	android.hardware.audio.service \
+	android.hardware.audio.effect@6.0-impl \
 
 # Audio policy configuration
 USE_XML_AUDIO_POLICY_CONF := 1
