@@ -28,11 +28,15 @@ $(DTBOIMAGE): $(DTBO_FILES)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := dtbimage
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 SPDX-license-identifier-BSD SPDX-license-identifier-MIT
+LOCAL_LICENSE_CONDITIONS := notice
 LOCAL_ADDITIONAL_DEPENDENCIES := $(DTBIMAGE)
 include $(BUILD_PHONY_PACKAGE)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := dtboimage
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0 SPDX-license-identifier-BSD SPDX-license-identifier-MIT
+LOCAL_LICENSE_CONDITIONS := notice
 LOCAL_ADDITIONAL_DEPENDENCIES := $(DTBOIMAGE)
 include $(BUILD_PHONY_PACKAGE)
 
