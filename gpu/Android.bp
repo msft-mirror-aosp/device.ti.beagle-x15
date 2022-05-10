@@ -15,6 +15,23 @@
 
 // Core dependencies
 
+package {
+    default_applicable_licenses: ["device_ti_beagle_x15_gpu_license"],
+}
+
+// See: http://go/android-license-faq
+license {
+    name: "device_ti_beagle_x15_gpu_license",
+    visibility: [":__subpackages__"],
+    license_kinds: [
+        "SPDX-license-identifier-BSD",
+        "SPDX-license-identifier-MIT",
+    ],
+    license_text: [
+        "NOTICE",
+    ],
+}
+
 cc_prebuilt_library_shared {
     name: "libIMGegl",
     srcs: ["libIMGegl.so"],
