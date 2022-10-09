@@ -27,7 +27,7 @@ PRODUCT_SOONG_NAMESPACES += \
 # Adjust the dalvik heap to be appropriate for a tablet.
 $(call inherit-product, frameworks/native/build/tablet-7in-xhdpi-2048-dalvik-heap.mk)
 
-PRODUCT_SHIPPING_API_LEVEL := 31
+PRODUCT_SHIPPING_API_LEVEL := 32
 PRODUCT_OTA_ENFORCE_VINTF_KERNEL_REQUIREMENTS := false
 
 # Set custom settings
