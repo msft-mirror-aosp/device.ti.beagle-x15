@@ -143,6 +143,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.opengles.version=131072 \
+	ro.hardware.egl=POWERVR_SGX544_116 \
 	ro.sf.lcd_density=160 \
 
 # All VNDK libraries (HAL interfaces, VNDK, VNDK-SP, LL-NDK)
